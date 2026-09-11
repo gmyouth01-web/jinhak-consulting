@@ -42,8 +42,6 @@
         .chat-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
         .chat-bubble-bot { border-bottom-left-radius: 2px; }
         .chat-bubble-user { border-bottom-right-radius: 2px; }
-        .tab-btn-active { @apply bg-brand-600 text-white shadow-sm; }
-        .tab-btn-inactive { @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col">
@@ -112,6 +110,27 @@
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
                 <div>
                     <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center">
+                        <i class="fa-solid fa-file-word text-blue-600 mr-2"></i>공식 신청서 양식 다운로드
+                    </h3>
+                    <div class="space-y-2 mb-4">
+                        <button onclick="downloadForm('middle')" class="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition text-xs font-bold shadow-sm group">
+                            <span class="flex items-center">
+                                <i class="fa-solid fa-file-arrow-down mr-2 text-emerald-200"></i>중학생용 신청서 (.hwp)
+                            </span>
+                            <i class="fa-solid fa-download text-white group-hover:translate-y-0.5 transition-transform"></i>
+                        </button>
+                        <button onclick="downloadForm('high')" class="w-full flex items-center justify-between p-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition text-xs font-bold shadow-sm group">
+                            <span class="flex items-center">
+                                <i class="fa-solid fa-file-arrow-down mr-2 text-blue-200"></i>고등학생·N수생용 신청서 (.hwp)
+                            </span>
+                            <i class="fa-solid fa-download text-white group-hover:translate-y-0.5 transition-transform"></i>
+                        </button>
+                        <p class="text-[11px] text-slate-500 leading-tight px-1">
+                            ※ 상담 대상별(중학생 / 고등학생·N수생)에 맞는 신청서 양식을 다운로드해 주세요.
+                        </p>
+                    </div>
+
+                    <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center">
                         <i class="fa-solid fa-link text-slate-400 mr-2"></i>바로가기 링크
                     </h3>
                     <div class="space-y-2">
@@ -155,11 +174,11 @@
                             <span class="text-[11px] text-slate-400 font-medium ml-1">진학상담 전문 챗봇</span>
                             <div class="bg-slate-100 text-slate-800 p-4 rounded-2xl chat-bubble-bot text-xs sm:text-sm leading-relaxed space-y-2.5">
                                 <p>안녕하세요! 🎓 <strong>광명시 청소년 진학상담 스마트 도우미</strong>입니다.</p>
-                                <p>광명시 관내 중2~고3 청소년, N수생, 학교 밖 청소년 및 학부모님을 위한 <strong>1:1 맞춤형 진학상담 수칙, 신청법, 장소 및 생기부 발급, 대입/고교선택 가이드</strong>를 안내해 드립니다.</p>
+                                <p>광명시 관내 중2~고3 청소년, N수생, 학교 밖 청소년 및 학부모님을 위한 <strong>1:1 맞춤형 진학상담 수칙, 통합 신청서 양식, 장소 및 생기부 발급 가이드</strong>를 안내해 드립니다.</p>
                                 <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
                                     <p class="font-bold text-brand-700">💡 자주 묻는 질문을 클릭하거나 직접 입력하세요:</p>
+                                    <p>• “통합 신청서 양식 다운로드할게요”</p>
                                     <p>• “신청 일정과 장소가 궁금해요”</p>
-                                    <p>• “중학생 상담신청 항목은 무엇인가요?”</p>
                                     <p>• “생기부 대신 나이스 캡처나 사진은 왜 안되나요?”</p>
                                     <p>• “상담 취소 시 페널티가 있나요?”</p>
                                 </div>
@@ -171,6 +190,12 @@
 
                 <!-- Quick Buttons Bar -->
                 <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-100 overflow-x-auto whitespace-nowrap scrollbar-none flex gap-2">
+                    <button onclick="downloadForm('middle')" class="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold transition shadow-sm shrink-0 flex items-center">
+                        <i class="fa-solid fa-file-arrow-down mr-1.5"></i> 중학생용 신청서 (.hwp)
+                    </button>
+                    <button onclick="downloadForm('high')" class="px-3.5 py-1.5 rounded-full bg-blue-600 text-white hover:bg-blue-700 text-xs font-bold transition shadow-sm shrink-0 flex items-center">
+                        <i class="fa-solid fa-file-arrow-down mr-1.5"></i> 고등·N수생용 신청서 (.hwp)
+                    </button>
                     <button onclick="handleQuickReply('상담 일정 및 신청방법')" class="px-3 py-1.5 rounded-full bg-white border border-brand-200 text-brand-700 hover:bg-brand-50 text-xs font-semibold transition shadow-sm shrink-0">
                         📅 신청일정 & 방법
                     </button>
@@ -182,12 +207,6 @@
                     </button>
                     <button onclick="handleQuickReply('상담 취소 및 불참 페널티')" class="px-3 py-1.5 rounded-full bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 text-xs font-semibold transition shadow-sm shrink-0">
                         ⚠️ 취소/지각 페널티 수칙
-                    </button>
-                    <button onclick="handleQuickReply('고3 대입 상담 팁')" class="px-3 py-1.5 rounded-full bg-white border border-purple-200 text-purple-700 hover:bg-purple-50 text-xs font-semibold transition shadow-sm shrink-0">
-                        🎓 고3 대입 상담 꿀팁
-                    </button>
-                    <button onclick="handleQuickReply('중학생 상담 작성법')" class="px-3 py-1.5 rounded-full bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs font-semibold transition shadow-sm shrink-0">
-                        🏫 중학생 진학/고교선택
                     </button>
                 </div>
 
@@ -201,6 +220,7 @@
                 </form>
             </div>
 
+            <!-- TAB 2: Whole Guidance & Rules -->
             <div id="tab-info" class="hidden flex-1 p-4 sm:p-6 overflow-y-auto space-y-6">
                 <div class="border-b border-slate-200 pb-4">
                     <div class="flex items-center space-x-2 text-brand-600 font-bold text-lg sm:text-xl">
@@ -208,6 +228,30 @@
                         <h2>2026년 일대일 진학상담 전체 운영 가이드</h2>
                     </div>
                     <p class="text-xs sm:text-sm text-slate-500 mt-1">광명시청소년진로진학지원센터에서 운영하는 현직 경기대입리더교사 1:1 맞춤 진학상담 상세 수칙입니다.</p>
+                </div>
+
+                <!-- Official Form Banner Card -->
+                <div class="bg-gradient-to-r from-blue-900 to-brand-700 p-5 sm:p-6 rounded-2xl text-white shadow-md space-y-3">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div class="flex items-center space-x-2 font-bold text-base sm:text-lg">
+                            <i class="fa-solid fa-file-signature text-amber-400 text-xl"></i>
+                            <span>2026년 1:1 진학상담 대상별 신청서 (.hwp)</span>
+                        </div>
+                        <span class="text-xs bg-amber-400 text-slate-900 font-extrabold px-3 py-1 rounded-full">공식 양식</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                        상담 신청 대상(중학생 / 고등학생 및 N수생)에 해당하는 서식을 다운로드하여 작성하신 후, 센터 홈페이지 접수 시 생기부 PDF와 함께 첨부해 주세요.
+                    </p>
+                    <div class="pt-2 flex flex-col sm:flex-row gap-2">
+                        <button onclick="downloadForm('middle')" class="inline-flex items-center justify-center space-x-2 bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-extrabold px-4 py-3 rounded-xl transition text-xs sm:text-sm shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>중학생용 신청서 다운로드 (.hwp)</span>
+                        </button>
+                        <button onclick="downloadForm('high')" class="inline-flex items-center justify-center space-x-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold px-4 py-3 rounded-xl transition text-xs sm:text-sm shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>고등학생·N수생용 신청서 다운로드 (.hwp)</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 1. Overview Grid -->
@@ -262,7 +306,7 @@
                         <div class="bg-white p-3.5 rounded-xl border border-blue-100 space-y-1">
                             <span class="font-bold text-brand-700 text-xs">STEP 2. 홈페이지 글 작성</span>
                             <p class="font-medium text-slate-800">센터 홈페이지 '진학상담신청' 탭</p>
-                            <p class="text-[11px] text-slate-500">중/고등 전용 서식 작성 + 생기부 PDF 필수 첨부</p>
+                            <p class="text-[11px] text-slate-500">통합 서식 작성 + 생기부 PDF 필수 첨부</p>
                         </div>
                         <div class="bg-white p-3.5 rounded-xl border border-blue-100 space-y-1">
                             <span class="font-bold text-brand-700 text-xs">STEP 3. 확정 연락</span>
@@ -285,9 +329,9 @@
                         <div class="bg-white p-3 rounded-xl border border-red-200 text-red-700 space-y-1 text-[11px]">
                             <p>❌ <strong>삭제 예시:</strong></p>
                             <p>• 상담내용: "진로진학상담"</p>
-                            <p>• 희망대학 및 학과: "없음"</p>
+                            <p>• 희망대학/희망고교: "없음"</p>
                             <p>• 성적정보: "미기재" 또는 일부만 기재</p>
-                            <p>• 필수서류(생기부 PDF, 개인정보동의서) 미첨부</p>
+                            <p>• 필수서류(생기부 PDF, 서식 동의) 미첨부</p>
                         </div>
                     </div>
 
@@ -308,33 +352,9 @@
                     </div>
                 </div>
 
-                <!-- 4. Target Specific Tips -->
-                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
-                    <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center text-brand-700">
-                        <i class="fa-solid fa-lightbulb mr-2"></i>대상별 상담 신청서 작성 꿀팁
-                    </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
-                            <span class="inline-block px-2.5 py-1 bg-purple-100 text-purple-800 font-bold text-xs rounded-md">고등학생 & N수생</span>
-                            <ul class="space-y-1 text-slate-600 text-xs">
-                                <li>• 수시/정시, 관심전형(교과/종합/논술/실기) 정확히 표시</li>
-                                <li>• 내신 및 모의고사 학년별/과목별 성적 상세 서술</li>
-                                <li>• 희망 대학/학과 및 구체적인 상담 질문사항을 상세히 작성</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
-                            <span class="inline-block px-2.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-md">중학생 (중2~중3)</span>
-                            <ul class="space-y-1 text-slate-600 text-xs">
-                                <li>• 희망 고교 유형(일반고, 특목고, 특성화고, 자율고, 영재학교) 선택</li>
-                                <li>• 상담요청 항목(고교학점제, 광명시 고교 특성, 교과선택과목, 2028 대입개편 등) 체크</li>
-                                <li>• 현재 성적대 및 궁금한 장래희망 구체적 작성</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
+            <!-- TAB 3: PDF Converter -->
             <div id="tab-pdf" class="hidden flex-1 p-4 sm:p-6 overflow-y-auto flex-col">
                 <div class="max-w-2xl mx-auto w-full space-y-6">
                     <div class="border-b border-slate-200 pb-4">
@@ -361,8 +381,13 @@
                     <!-- Uploaded Photos List Container -->
                     <div id="photo-list-container" class="hidden space-y-3">
                         <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
-                            <span id="photo-count">선택된 사진: 0장</span>
-                            <button onclick="clearPhotos()" class="text-red-500 hover:underline font-semibold">전체 삭제</button>
+                            <span id="photo-count">선택된 파일: 0개</span>
+                            <div class="space-x-3">
+                                <button onclick="downloadAllOriginals()" class="text-brand-600 hover:underline font-bold">
+                                    <i class="fa-solid fa-download mr-1"></i>원본 전체 다운로드
+                                </button>
+                                <button onclick="clearPhotos()" class="text-red-500 hover:underline font-semibold">전체 삭제</button>
+                            </div>
                         </div>
 
                         <!-- Image Previews Container -->
@@ -374,80 +399,30 @@
                         <div class="pt-3">
                             <button onclick="convertPhotosToPdf()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm">
                                 <i class="fa-solid fa-file-pdf"></i>
-                                <span>PDF 1개 파일로 다운로드하기</span>
+                                <span>PDF 1개 파일로 통합 변환 다운로드</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Instructions Card -->
-                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 leading-relaxed space-y-1">
-                        <p class="font-bold text-blue-800"><i class="fa-solid fa-circle-check mr-1"></i>변환 사용 팁:</p>
-                        <p>1. 사진의 순서(1쪽, 2쪽, 3쪽...)가 바르지 않으면 좌우 화살표 버튼으로 순서를 조정하세요.</p>
-                        <p>2. 사진이 지나치게 어둡거나 글씨가 뭉개져 보이는 경우, 정부24 전자 PDF 발급을 강력히 권장합니다.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="tab-guide" class="hidden flex-1 p-4 sm:p-6 overflow-y-auto">
-                <div class="max-w-3xl mx-auto space-y-6">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-school text-brand-600"></i>
-                            <span>생활기록부 올바른 발급 방법 (2가지)</span>
-                        </h2>
-                        <p class="text-xs text-slate-500 mt-1">진학상담 접수 전 생활기록부를 미리 준비하세요.</p>
-                    </div>
-
-                    <!-- Method 1: Government 24 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="inline-block px-3 py-1 bg-brand-100 text-brand-700 font-bold text-xs rounded-full">방법 1 (추천)</span>
-                            <span class="text-xs font-semibold text-emerald-600"><i class="fa-solid fa-bolt mr-1"></i>무료 / 즉시 PDF 다운로드</span>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-base">정부24(plus.gov.kr) 온라인 발급</h3>
-                        <ol class="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-2">
-                            <li><strong>정부24 홈페이지(plus.gov.kr)</strong> 접속 후 청소년/학생 간편인증 로그인</li>
-                            <li>검색창에 <strong>[학교생활기록부]</strong> 검색 후 <strong>[발급하기]</strong> 클릭</li>
-                            <li>학교명, 학년도 등 인적사항 입력 후 수령방법 <strong>'온라인발급(본인출력)'</strong> 선택</li>
-                            <li>발급완료 후 문서보기 화면에서 <strong>[인쇄] ➔ 대상을 [PDF로 저장]</strong>으로 선택하여 다운로드</li>
-                        </ol>
-                        <div class="pt-2">
-                            <a href="https://plus.gov.kr/search/searchdtl?srvcId=13410000019&typeSn=01" target="_blank" class="inline-flex items-center text-xs font-bold text-brand-600 hover:underline">
-                                정부24 생기부 발급 바로가기 <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Method 2: School Visit -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="inline-block px-3 py-1 bg-slate-200 text-slate-700 font-bold text-xs rounded-full">방법 2</span>
-                            <span class="text-xs text-slate-500">방문 발급</span>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-base">소속 학교 행정실 방문 발급 후 스캔</h3>
-                        <ol class="list-decimal pl-5 text-xs sm:text-sm text-slate-600 space-y-2">
-                            <li>재학 중인 학교 또는 가까운 초·중·고등학교 <strong>행정실 방문</strong></li>
-                            <li>신분증 제시 후 학교생활기록부 종이 문서 발급</li>
-                            <li>발급받은 종이 문서를 스캐너(또는 모바일 스캐너 앱)를 사용하여 <strong>1개의 PDF 파일로 스캔</strong>하여 제출</li>
-                        </ol>
-                    </div>
-
-                    <!-- FAQ Note -->
-                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-amber-900 text-xs space-y-1">
-                        <p class="font-bold"><i class="fa-solid fa-circle-question mr-1"></i>자주 묻는 질문: 나이스(NEIS) 캡처본은 왜 안 되나요?</p>
-                        <p class="text-amber-800 leading-relaxed">
-                            나이스 열람 화면은 단순 보기용으로 공식 인증 문서가 아닙니다. 일부 항목이 생략되거나 화질 저하로 현직 상담교사의 정확한 성적 및 비교과 분석이 불가능합니다. 따라서 정부24 또는 행정실 스캔본(PDF)만 인정됩니다.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-    </main>
-
     <script>
         // Store uploaded photos array for PDF generator
         let uploadedPhotos = [];
+
+        // Direct Download Links for Official Application Forms
+        const FORM_URLS = {
+            middle: 'https://gmyouth.or.kr/downloadContentsFile.do?key=889&fileNo=711',
+            high: 'https://gmyouth.or.kr/downloadContentsFile.do?key=889&fileNo=712'
+        };
+
+        // Download Official File Function
+        function downloadForm(type) {
+            const url = FORM_URLS[type];
+            if (url) {
+                window.location.href = url;
+            } else {
+                alert('다운로드 링크를 찾을 수 없습니다.');
+            }
+        }
 
         // Tab Switcher Logic
         function switchTab(tabName) {
@@ -534,27 +509,32 @@
             const q = query.toLowerCase();
 
             setTimeout(() => {
-                if (q.includes('일정') || q.includes('신청방법') || q.includes('언제') || q.includes('접수') || q.includes('3월')) {
+                if (q.includes('양식') || q.includes('다운') || q.includes('한글') || q.includes('hwp') || q.includes('서식') || q.includes('신청서')) {
                     addBotMessage(`
-                        <p>📅 <strong>1:1 진학상담 신청 일정 및 방법</strong></p>
-                        <p>• <strong>접수 일정:</strong> 매월 1일 오후 5시 (17:00) 선착순 27팀</p>
-                        <p class="text-xs text-amber-700 bg-amber-50 p-2 rounded-lg">
-                            ※ <strong>3월 상담은 3월 6일(금) 17:00</strong>에 접수가 시작됩니다.
-                        </p>
-                        <p>• <strong>신청 방법:</strong> '청소년진로진학지원센터' 홈페이지 접속 ➔ 회원가입 ➔ '진학상담신청' 탭 ➔ 신청서 및 생활기록부(PDF) 작성 업로드</p>
-                        <p>• <strong>상담 확정:</strong> 신청 후 3일 이내 유선 연락 및 답글 안내</p>
+                        <p>📥 <strong>2026년 1:1 진학상담 신청서 양식 다운로드</strong></p>
+                        <p>상담 대상에 맞는 버튼을 클릭하여 양식을 즉시 다운로드하세요.</p>
+                        <div class="my-2 space-y-2">
+                            <button onclick="downloadForm('middle')" class="w-full text-left p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-between shadow-sm">
+                                <span>📄 2026 진학상담 신청서 (중학생용 .hwp)</span>
+                                <i class="fa-solid fa-download text-white"></i>
+                            </button>
+                            <button onclick="downloadForm('high')" class="w-full text-left p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center justify-between shadow-sm">
+                                <span>📄 2026 진학상담 신청서 (고등학생·N수생용 .hwp)</span>
+                                <i class="fa-solid fa-download text-white"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-500">※ 작성하신 후 센터 홈페이지 게시판에 생기부 PDF와 함께 업로드해 주세요.</p>
                     `);
-                } 
-                else if (q.includes('장소') || q.includes('어디') || q.includes('권역') || q.includes('도서관') || q.includes('학습원')) {
+                }
+                else if (q.includes('일정') || q.includes('신청방법') || q.includes('언제') || q.includes('접수') || q.includes('3월')) {
                     addBotMessage(`
-                        <p>📍 <strong>요일별 상담 장소 안내 (매월 마지막 주)</strong></p>
-                        <p>광명시 권역별로 나누어 1:1 상담이 진행됩니다.</p>
-                        <ul class="list-disc pl-4 space-y-1 my-1 text-xs">
-                            <li><strong>화요일 (광명동):</strong> 광명도서관 (6팀)</li>
-                            <li><strong>수요일 (철산/하안):</strong> 광명시평생학습원 (9팀)</li>
-                            <li><strong>목요일 (소하/일직):</strong> 광명시진로진학지원센터 (9팀) & 소하도서관 (3팀)</li>
+                        <p>📅 <strong>상담 신청 일정 및 방법</strong></p>
+                        <ul class="list-disc pl-4 text-xs space-y-1">
+                            <li><strong>신청일:</strong> 매월 1일 17:00 (오후 5시) 선착순 접수</li>
+                            <li><strong>3월 특별 접수:</strong> 2026년 3월 6일(금) 17:00 시작</li>
+                            <li><strong>신청 장소:</strong> 센터 홈페이지 [진학상담신청] 게시판</li>
+                            <li><strong>필수 준비물:</strong> 작성된 통합신청서(.hwp) + 생기부(PDF 1개)</li>
                         </ul>
-                        <p class="text-xs text-slate-500">※ 회차당 40분간 진행되며 주차장이 협소하므로 대중교통 이용을 권장합니다.</p>
                     `);
                 } 
                 else if (q.includes('취소') || q.includes('지각') || q.includes('페널티') || q.includes('제한') || q.includes('6개월') || q.includes('못가')) {
@@ -575,9 +555,9 @@
                         <div class="bg-amber-50 p-2 rounded-lg text-xs text-amber-900 space-y-1">
                             <p class="font-bold">❌ 삭제 처리 대상 예시:</p>
                             <p>• 상담내용: "진학상담", "진로상담" 등 성의 없는 단답</p>
-                            <p>• 희망대학/학과: "없음"</p>
+                            <p>• 희망대학/희망고교: "없음"</p>
                             <p>• 성적정보: 미기재 또는 일부 기재</p>
-                            <p>• 필수 첨부 서류(생기부 PDF, 개인정보동의서) 누락</p>
+                            <p>• 필수 첨부 서류(생기부 PDF, 서식 동의) 누락</p>
                         </div>
                     `);
                 }
@@ -597,41 +577,16 @@
                         </div>
                     `);
                 }
-                else if (q.includes('고3') || q.includes('대입') || q.includes('수시') || q.includes('정시')) {
-                    addBotMessage(`
-                        <p>🎓 <strong>고3 / 대입 신청자 정밀 상담 팁!</strong></p>
-                        <p>신청서 작성 시 학년별/과목별 내신 및 모의고사 성적과 희망 대학/학과, 주요 질의사항을 구체적으로 기재해 주세요.</p>
-                        <p>상담 교사(경기대입리더교사)가 이를 바탕으로 세밀한 수시·정시 합격 가능 진단 및 맞춤형 입시 전략을 제공해 드립니다.</p>
-                    `);
-                }
-                else if (q.includes('중학생') || q.includes('중2') || q.includes('중3') || q.includes('고교선택') || q.includes('고교학점제') || q.includes('특목고')) {
-                    addBotMessage(`
-                        <p>🏫 <strong>중학생 진학상담 안내 (중2~중3)</strong></p>
-                        <p>중학생 신청자는 아래와 같은 내용으로 상담을 받으실 수 있습니다:</p>
-                        <ul class="list-disc pl-4 text-xs space-y-1">
-                            <li><strong>희망 고교 유형:</strong> 일반고, 특목고, 특성화고, 자율고, 영재학교 선택</li>
-                            <li><strong>주요 상담 항목:</strong> 고교학점제 준비, 광명시 고교별 특성, 교과 선택과목 가이드, 2028 대입제도 개편 반영 전략</li>
-                        </ul>
-                        <p class="text-xs text-slate-500 mt-1">※ 중학생 전용 신청서 양식을다운로드받아 작성해 주세요.</p>
-                    `);
-                }
-                else if (q.includes('대상') || q.includes('자격') || q.includes('누구') || q.includes('중복')) {
-                    addBotMessage(`
-                        <p>👥 <strong>상담 대상 및 중복 참여 규정</strong></p>
-                        <p>• <strong>대상:</strong> 광명시 관내 재학 또는 거주 중2~고3 청소년, N수생(24세 이하), 학교 밖 청소년, 학부모</p>
-                        <p>• <strong>중복 참여:</strong> 횟수 제한 없이 재참여 가능하되, <strong>2회 이상 중복 신청 시에는 신규 신청자가 우선 선발</strong>되고 잔여 석에 한해 접수됩니다.</p>
-                    `);
-                }
                 else {
                     addBotMessage(`
                         <p>문의해주셔서 감사합니다! 😊</p>
                         <p>광명시청소년진로진학지원센터 1:1 진학상담 주요 안내를 선택해보세요:</p>
                         <div class="space-y-1.5 pt-1 text-xs">
+                            <button onclick="downloadForm()" class="block text-left text-blue-600 font-bold hover:underline">
+                                • [공식 다운로드] 2026 진학상담 통합 신청서 (.hwp)
+                            </button>
                             <button onclick="handleQuickReply('상담 일정 및 신청방법')" class="block text-left text-brand-600 font-bold hover:underline">
                                 • 매월 접수 일정 및 홈페이지 신청 방법
-                            </button>
-                            <button onclick="handleQuickReply('요일별 상담 장소 안내')" class="block text-left text-brand-600 font-bold hover:underline">
-                                • 화/수/목 권역별 상담 장소 (도서관, 학습원)
                             </button>
                             <button onclick="handleQuickReply('생기부 제출 필수 규칙')" class="block text-left text-brand-600 font-bold hover:underline">
                                 • 생활기록부 제출 규칙 (PDF 저장 방법)
@@ -676,34 +631,62 @@
             }
 
             container.classList.remove('hidden');
-            countText.innerText = `선택된 사진: ${uploadedPhotos.length}장`;
+            countText.innerText = `선택된 파일: ${uploadedPhotos.length}개`;
             grid.innerHTML = '';
 
             uploadedPhotos.forEach((photo, index) => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'relative group border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm p-1.5 flex flex-col justify-between';
                 itemDiv.innerHTML = `
-                    <div class="relative h-28 w-full rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center">
+                    <div class="relative h-24 w-full rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center">
                         <img src="${photo.dataUrl}" class="max-h-full max-w-full object-contain">
                         <span class="absolute top-1 left-1 bg-slate-900/70 text-white font-bold text-[10px] px-1.5 py-0.5 rounded">
                             ${index + 1}쪽
                         </span>
                     </div>
-                    <div class="flex items-center justify-between mt-1.5 text-xs px-0.5">
-                        <div class="flex space-x-1">
-                            <button onclick="movePhoto(${index}, -1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] ${index === 0 ? 'opacity-30 cursor-not-allowed' : ''}">
-                                ◀
-                            </button>
-                            <button onclick="movePhoto(${index}, 1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] ${index === uploadedPhotos.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}">
-                                ▶
+                    <div class="mt-1.5 space-y-1">
+                        <button onclick="downloadSingleOriginal(${index})" class="w-full text-[11px] bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold py-1 px-1.5 rounded flex items-center justify-center space-x-1 border border-brand-200">
+                            <i class="fa-solid fa-download"></i>
+                            <span class="truncate max-w-[110px]">원본 다운로드</span>
+                        </button>
+                        <div class="flex items-center justify-between text-xs px-0.5">
+                            <div class="flex space-x-1">
+                                <button onclick="movePhoto(${index}, -1)" class="w-5 h-5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] ${index === 0 ? 'opacity-30 cursor-not-allowed' : ''}">
+                                    ◀
+                                </button>
+                                <button onclick="movePhoto(${index}, 1)" class="w-5 h-5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] ${index === uploadedPhotos.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}">
+                                    ▶
+                                </button>
+                            </div>
+                            <button onclick="removePhoto(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold px-1">
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
-                        <button onclick="removePhoto(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold px-1">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
                     </div>
                 `;
                 grid.appendChild(itemDiv);
+            });
+        }
+
+        // Download specific original uploaded file directly
+        function downloadSingleOriginal(index) {
+            const photo = uploadedPhotos[index];
+            if (!photo) return;
+            const a = document.createElement('a');
+            a.href = photo.dataUrl;
+            a.download = photo.name || `생기부_서류_${index + 1}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => document.body.removeChild(a), 200);
+        }
+
+        // Download all original uploaded files
+        function downloadAllOriginals() {
+            if (uploadedPhotos.length === 0) return;
+            uploadedPhotos.forEach((photo, idx) => {
+                setTimeout(() => {
+                    downloadSingleOriginal(idx);
+                }, idx * 250);
             });
         }
 
